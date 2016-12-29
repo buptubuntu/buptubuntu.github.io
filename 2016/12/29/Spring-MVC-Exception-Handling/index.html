@@ -6,21 +6,42 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://buptubuntu.github.io">
-  <title>Hello World | buptubuntu的博客</title>
+  <title>Spring MVC Exception Handling | buptubuntu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+  <meta name="description" content="在Spring MVC中可以从三个角度对异常进行处理：
+
+对特定类型的异常进行处理
+对特定类型的Controller类进行异常处理
+全局异常处理
+
+对特定类型的异常进行处理对于特定类型的异常，我们可以通过给异常类添加ResponseStatus注解，在Controller类抛出此类异常时Spring MVC框架会自动将指定的相应码写入到请求的响应中。
+比如如果有一个异常表示没有查询到订单：
+123">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://buptubuntu.github.io/2016/12/26/hello-world/index.html">
+<meta property="og:title" content="Spring MVC Exception Handling">
+<meta property="og:url" content="https://buptubuntu.github.io/2016/12/29/Spring-MVC-Exception-Handling/index.html">
 <meta property="og:site_name" content="buptubuntu的博客">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-12-27T16:16:22.000Z">
+<meta property="og:description" content="在Spring MVC中可以从三个角度对异常进行处理：
+
+对特定类型的异常进行处理
+对特定类型的Controller类进行异常处理
+全局异常处理
+
+对特定类型的异常进行处理对于特定类型的异常，我们可以通过给异常类添加ResponseStatus注解，在Controller类抛出此类异常时Spring MVC框架会自动将指定的相应码写入到请求的响应中。
+比如如果有一个异常表示没有查询到订单：
+123">
+<meta property="og:updated_time" content="2016-12-29T10:57:59.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="Spring MVC Exception Handling">
+<meta name="twitter:description" content="在Spring MVC中可以从三个角度对异常进行处理：
+
+对特定类型的异常进行处理
+对特定类型的Controller类进行异常处理
+全局异常处理
+
+对特定类型的异常进行处理对于特定类型的异常，我们可以通过给异常类添加ResponseStatus注解，在Controller类抛出此类异常时Spring MVC框架会自动将指定的相应码写入到请求的响应中。
+比如如果有一个异常表示没有查询到订单：
+123">
   
     <link rel="alternative" href="/atom.xml" title="buptubuntu的博客" type="application/atom+xml">
   
@@ -154,33 +175,40 @@ Quick">
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-hello-world" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-Spring-MVC-Exception-Handling" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      Spring MVC Exception Handling
     </h1>
   
 
-        <a href="/2016/12/26/hello-world/" class="archive-article-date">
-  	<time datetime="2016-12-26T07:31:44.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-26</time>
+        <a href="/2016/12/29/Spring-MVC-Exception-Handling/" class="archive-article-date">
+  	<time datetime="2016-12-29T10:35:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-29</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>在Spring MVC中可以从三个角度对异常进行处理：</p>
+<ul>
+<li>对特定类型的异常进行处理</li>
+<li>对特定类型的Controller类进行异常处理</li>
+<li>全局异常处理</li>
+</ul>
+<h2 id="对特定类型的异常进行处理"><a href="#对特定类型的异常进行处理" class="headerlink" title="对特定类型的异常进行处理"></a>对特定类型的异常进行处理</h2><p>对于特定类型的异常，我们可以通过给异常类添加ResponseStatus注解，在Controller类抛出此类异常时Spring MVC框架会自动将指定的相应码写入到请求的响应中。</p>
+<p>比如如果有一个异常表示没有查询到订单：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ResponseStatus</span>(value=HttpStatus.NOT_FOUND, reason=<span class="string">"No such Order"</span>)  <span class="comment">// 404</span></div><div class="line"> <span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">OrderNotFoundException</span> <span class="keyword">extends</span> <span class="title">RuntimeException</span> </span>&#123;</div><div class="line">     <span class="comment">// ...</span></div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>在某个Controller中抛出了该异常：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/orders/&#123;id&#125;"</span>, method=GET)</div><div class="line"> <span class="function"><span class="keyword">public</span> String <span class="title">showOrder</span><span class="params">(@PathVariable(<span class="string">"id"</span>)</span> <span class="keyword">long</span> id, Model model) </span>&#123;</div><div class="line">     Order order = orderRepository.findOrderById(id);</div><div class="line"></div><div class="line">     <span class="keyword">if</span> (order == <span class="keyword">null</span>) <span class="keyword">throw</span> <span class="keyword">new</span> OrderNotFoundException(id);</div><div class="line"></div><div class="line">     model.addAttribute(order);</div><div class="line">     <span class="keyword">return</span> <span class="string">"orderDetail"</span>;</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+<p>那么当请求的订单ID不存的时候，请求的响应验证码就是404</p>
+<h2 id="单个Controller类中的异常处理"><a href="#单个Controller类中的异常处理" class="headerlink" title="单个Controller类中的异常处理"></a>单个Controller类中的异常处理</h2><p>在单个Controller类中，我们可以单独定义一个方法，并使用ExceptionHandler注解标注该方法，那么此Contrller类中如果有请求抛出特定异常时将由改方法来处理。代码示例如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@Controller</span></div><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ExceptionHandlingController</span> </span>&#123;</div><div class="line"></div><div class="line">  <span class="comment">// @RequestHandler methods</span></div><div class="line">  ...</div><div class="line">  </div><div class="line">  <span class="comment">// Exception handling methods</span></div><div class="line">  </div><div class="line">  <span class="comment">// Convert a predefined exception to an HTTP Status code</span></div><div class="line">  <span class="meta">@ResponseStatus</span>(value=HttpStatus.CONFLICT,</div><div class="line">                  reason=<span class="string">"Data integrity violation"</span>)  <span class="comment">// 409</span></div><div class="line">  <span class="meta">@ExceptionHandler</span>(DataIntegrityViolationException.class)</div><div class="line">  <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">conflict</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// Nothing to do</span></div><div class="line">  &#125;</div><div class="line">  </div><div class="line">  <span class="comment">// Specify name of a specific view that will be used to display the error:</span></div><div class="line">  <span class="meta">@ExceptionHandler</span>(&#123;SQLException.class,DataAccessException.class&#125;)</div><div class="line">  <span class="function"><span class="keyword">public</span> String <span class="title">databaseError</span><span class="params">()</span> </span>&#123;</div><div class="line">    <span class="comment">// Nothing to do.  Returns the logical view name of an error page, passed</span></div><div class="line">    <span class="comment">// to the view-resolver(s) in usual way.</span></div><div class="line">    <span class="comment">// Note that the exception is NOT available to this view (it is not added</span></div><div class="line">    <span class="comment">// to the model) but see "Extending ExceptionHandlerExceptionResolver"</span></div><div class="line">    <span class="comment">// below.</span></div><div class="line">    <span class="keyword">return</span> <span class="string">"databaseError"</span>;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  <span class="comment">// Total control - setup a model and return the view name yourself. Or</span></div><div class="line">  <span class="comment">// consider subclassing ExceptionHandlerExceptionResolver (see below).</span></div><div class="line">  <span class="meta">@ExceptionHandler</span>(Exception.class)</div><div class="line">  <span class="function"><span class="keyword">public</span> ModelAndView <span class="title">handleError</span><span class="params">(HttpServletRequest req, Exception ex)</span> </span>&#123;</div><div class="line">    logger.error(<span class="string">"Request: "</span> + req.getRequestURL() + <span class="string">" raised "</span> + ex);</div><div class="line"></div><div class="line">    ModelAndView mav = <span class="keyword">new</span> ModelAndView();</div><div class="line">    mav.addObject(<span class="string">"exception"</span>, ex);</div><div class="line">    mav.addObject(<span class="string">"url"</span>, req.getRequestURL());</div><div class="line">    mav.setViewName(<span class="string">"error"</span>);</div><div class="line">    <span class="keyword">return</span> mav;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="全局异常处理"><a href="#全局异常处理" class="headerlink" title="全局异常处理"></a>全局异常处理</h2><p>在很多情况下，我们可能想要对所有Controller抛出的异常做统一的处理，在这种情况下，我们可以充分利用Spring提供的切面功能，在Spring MVC中我们可以通过简单的ControllerAdvice注解达到目的。代码示例如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="meta">@ControllerAdvice</span></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">GlobalControllerExceptionHandler</span> </span>&#123;</div><div class="line">    <span class="meta">@ResponseStatus</span>(HttpStatus.CONFLICT)  <span class="comment">// 409</span></div><div class="line">    <span class="meta">@ExceptionHandler</span>(DataIntegrityViolationException.class)</div><div class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">handleConflict</span><span class="params">()</span> </span>&#123;</div><div class="line">        <span class="comment">// Nothing to do</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
+<p>通过上面的代码，所有Controller抛出的DataIntegrityViolationException异常都讲集中进行处理。</p>
 
       
 
@@ -212,15 +240,10 @@ Quick">
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Exception-Handling/">Exception Handling</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-MVC/">Spring MVC</a></li></ul>
 	</div>
 
       
-	<div class="article-category tagcloud">
-	<i class="icon-book icon"></i>
-	<a class="article-category-link" href="/categories/tool/">tool</a>
-	</div>
-
 
       
 
@@ -270,7 +293,7 @@ Quick">
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://buptubuntu.github.io/2016/12/26/hello-world/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://buptubuntu.github.io/2016/12/29/Spring-MVC-Exception-Handling/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -284,15 +307,11 @@ Quick">
   
 <nav id="article-nav">
   
-    <a href="/2016/12/29/Spring-MVC-Exception-Handling/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          Spring MVC Exception Handling
-        
-      </div>
-    </a>
   
+    <a href="/2016/12/26/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Hello World</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -303,7 +322,7 @@ Quick">
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="hello-world" data-title="Hello World" data-url="https://buptubuntu.github.io/2016/12/26/hello-world/"></div>
+	<div class="ds-thread" data-thread-key="Spring-MVC-Exception-Handling" data-title="Spring MVC Exception Handling" data-url="https://buptubuntu.github.io/2016/12/29/Spring-MVC-Exception-Handling/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
