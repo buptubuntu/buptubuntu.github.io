@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://buptubuntu.github.io">
-  <title>Archives: 2016 | buptubuntu的博客</title>
+  <title>Spring Best Practice | buptubuntu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="buptubuntu的博客">
-<meta property="og:url" content="https://buptubuntu.github.io/archives/2016/index.html">
+  <meta name="description" content="Spring 最佳实践编程语言或者是框架的实现往往允许我们通过多种方式去解决我们现实业务中遇到的问题，往往对于同一个问题我们不同的人会使用不同的方法去解决问题，但是从前辈的经验或者说从系统的可扩展性、后续维护成本的角度来说，一些沉淀下来的方式相比于其他同样可以解决现在业务问题的方式才是最佳的实践方式。
+INTERFACES AND SPRING1If,after reading the last">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring Best Practice">
+<meta property="og:url" content="https://buptubuntu.github.io/2017/01/02/Spring-Best-Practice/index.html">
 <meta property="og:site_name" content="buptubuntu的博客">
+<meta property="og:description" content="Spring 最佳实践编程语言或者是框架的实现往往允许我们通过多种方式去解决我们现实业务中遇到的问题，往往对于同一个问题我们不同的人会使用不同的方法去解决问题，但是从前辈的经验或者说从系统的可扩展性、后续维护成本的角度来说，一些沉淀下来的方式相比于其他同样可以解决现在业务问题的方式才是最佳的实践方式。
+INTERFACES AND SPRING1If,after reading the last">
+<meta property="og:updated_time" content="2017-01-02T13:22:48.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="buptubuntu的博客">
+<meta name="twitter:title" content="Spring Best Practice">
+<meta name="twitter:description" content="Spring 最佳实践编程语言或者是框架的实现往往允许我们通过多种方式去解决我们现实业务中遇到的问题，往往对于同一个问题我们不同的人会使用不同的方法去解决问题，但是从前辈的经验或者说从系统的可扩展性、后续维护成本的角度来说，一些沉淀下来的方式相比于其他同样可以解决现在业务问题的方式才是最佳的实践方式。
+INTERFACES AND SPRING1If,after reading the last">
   
     <link rel="alternative" href="/atom.xml" title="buptubuntu的博客" type="application/atom+xml">
   
@@ -147,54 +154,159 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Spring-Best-Practice" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/12/29/Spring-MVC-Exception-Handling/" class="archive-article-date">
-  	<time datetime="2016-12-29T10:35:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-29</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/12/29/Spring-MVC-Exception-Handling/">Spring MVC Exception Handling</a>
+    <h1 class="article-title" itemprop="name">
+      Spring Best Practice
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        <a href="/2017/01/02/Spring-Best-Practice/" class="archive-article-date">
+  	<time datetime="2017-01-02T04:19:26.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-02</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Spring-最佳实践"><a href="#Spring-最佳实践" class="headerlink" title="Spring 最佳实践"></a>Spring 最佳实践</h1><p>编程语言或者是框架的实现往往允许我们通过多种方式去解决我们现实业务中遇到的问题，往往对于同一个问题我们不同的人会使用不同的方法去解决问题，但是从前辈的经验或者说从系统的可扩展性、后续维护成本的角度来说，一些沉淀下来的方式相比于其他同样可以解决现在业务问题的方式才是最佳的实践方式。</p>
+<h2 id="INTERFACES-AND-SPRING"><a href="#INTERFACES-AND-SPRING" class="headerlink" title="INTERFACES AND SPRING"></a>INTERFACES AND SPRING</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">If,after reading the last couple of paragraphs,you feel that I have a strong bias toward hiding the persistence layer hebind interfaces,then I&apos;m happy I was able to get that point acrss. I believe that interfaces are key to writing loosely coupled code and that they should be used at all layers of an application, not just at the data-access layer.That said, it&apos;s also important to note that though Spring encourages the use of interfaces, Spring dosen&apos;t require them--you&apos;re welcome to use Spring to write a bean(repository or otherwise) directly into a property of another bean without an interface between them.</div></pre></td></tr></table></figure>
+<p>上面的话摘自Spring in Action, Spring框架允许我们在IOC时注入接口（框架自动匹配实现了接口的具体类的bean）或者直接注入具体类型的bean<br>, 不可否认, 我们可以在具体的实现时可以不用定义接口，直接定义具体的实现类来达到我们的目的，但是这样的系统内部往往耦合性比较高，不利于后续的扩展和维护，所以Spring鼓励框架的使用者通过定义接口来约定行为集合，然后通过具体类实现接口，已达到松耦合的目的。</p>
+<h2 id="SPRING’S-PERSISTENCE-PLATFORM-AGNOSTIC-EXCEPTIONS"><a href="#SPRING’S-PERSISTENCE-PLATFORM-AGNOSTIC-EXCEPTIONS" class="headerlink" title="SPRING’S PERSISTENCE PLATFORM-AGNOSTIC EXCEPTIONS"></a>SPRING’S PERSISTENCE PLATFORM-AGNOSTIC EXCEPTIONS</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Spring JDBC provides hierarchy of data-access exceptions that solve both problems. In constrast to JDBC, Spring provides several data-access exceptions, each descriptive of the problem for which they&apos;re thrown.</div><div class="line"></div><div class="line">Even though Spring&apos;s exception hierarchy is far richer than JDBC&apos;s simple SQL-Exception it isn&apos;t associated with any particular persistence solution. This means you can count on Spring to throw a consistent set of exceptions, regardlesss of which persistence provider you choose. This helps to keep your persistence choice confined to the data-access layer.</div><div class="line"></div><div class="line">To take advantage of Spring&apos;s data-access esceptions, you must use one of Spring&apos;s supported data-access templates.(Design pattern: template method pattern)</div><div class="line"></div><div class="line">Spring separates the fixed and variable parts of the data-access process into two distinct classes: templates and callbacks. Templates manage the fixed part of the process, whereas your custom data-access code is handled in callbacks.</div><div class="line"></div><div class="line">JDBC is the most basic way to work with ralational data in Java. But as defined in the specification,JDBC can be somewhat unwieldy. Spring takes much of the pain out of working with JDBC, eliminating boilerpalte code and simplifying JDBC exception handling, leaving you little more to deal with than writing the SQL that should be performed.</div></pre></td></tr></table></figure>
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Exception-Handling/">Exception Handling</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring-MVC/">Spring MVC</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Best-Practice/">Best Practice</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Java/">Java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Spring/">Spring</a></li></ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://buptubuntu.github.io/2017/01/02/Spring-Best-Practice/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
-  
 
-    
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2016/12/29/Spring-MVC-Exception-Handling/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Spring MVC Exception Handling</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="Spring-Best-Practice" data-title="Spring Best Practice" data-url="https://buptubuntu.github.io/2017/01/02/Spring-Best-Practice/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"buptubuntugithub"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
+
+
+
 
 
           </div>
@@ -217,8 +329,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
