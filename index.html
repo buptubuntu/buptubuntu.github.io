@@ -149,18 +149,189 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-High-Performance-MYSQL" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-High-Performance-MYSQL-Chapter-Four" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/08/High-Performance-MYSQL/">High Performance MYSQL Chapter One</a>
+      <a class="article-title" href="/2017/02/02/High-Performance-MYSQL-Chapter-Four/">High-Performance-MYWQL-Chapter-Four</a>
     </h1>
   
 
-        <a href="/2017/01/08/High-Performance-MYSQL/" class="archive-article-date">
+        <a href="/2017/02/02/High-Performance-MYSQL-Chapter-Four/" class="archive-article-date">
+  	<time datetime="2017-02-02T01:18:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-02</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="选择优化的数据类型"><a href="#选择优化的数据类型" class="headerlink" title="选择优化的数据类型"></a>选择优化的数据类型</h2><ul>
+<li>更小的通常更好</li>
+<li>尽量避免NULL<br>很多表都包含可为NULL（空值）的列，即使应用程序并不需要保存NULL也是如此。通常情况下最好指定列为NOT NULL，除非真的需要存储NULL值。<br>如果查询中包含可为NULL的列，对于MySQL来说更难优化，因为可为NULL的列使得索引、索引统计和值比较都更加复杂。<br>InnoDB使用单独的位（bit）存储NULL值，所以对于稀疏数据有很好的空间效率。但这一点不适用于MyISAM。</li>
+</ul>
+<p>很多MySQL的数据类型可以存储相同类型的数据，只是存储的长度和范围不一样，允许的精度不同，或者需要的物理空间不同。相同大类型的不同子类型数据有时也有一些特殊的行为和属性。例如DATETIME和TIMESTAMP列都可以存储相同类型的数据：时间和日期，精确到秒。然而TIMESTAMP只使用DATETIME一半的存储空间，并且会根据时区变化，具有特殊的自动更新能力。另一方面，TIMESTAMP允许的时间范围要小得多，有时候它的特殊能力会成为障碍。</p>
+<p>MySQL为了兼容性支持很多别名，例如INTEGER、BOOL以及NUMERIC。它们都只是别名。</p>
+<h3 id="实数类型"><a href="#实数类型" class="headerlink" title="实数类型"></a>实数类型</h3><p>MySQL可以为整数类型指定宽度，例如INT(11)，对于大多数应用这是没有意义的：它不会限制值的合法范围，只是规定了MySQL的一些交互工具（例如MySQL命令行客户端）用来显示字符的个数。对于存储和计算来说，INT（1）和INT（20）是相同的。</p>
+<p>有多种方法可以指定浮点列所需要的精度，这回使得MySQL悄悄选择不同的数据类型，或者在存储时对值进行取舍。这些精度定义时非标准的，所以我们建议只指定数据类型，不指定精度。</p>
+<p>因为需要额外的空间和计算开销，所以应该尽量只在对小数进行精确计算时才使用DECIMAL——例如存储财务数据。但在数据量比较大的时候，可以考虑使用BIGINT代替DECIMAL，将需要存储的货币单位根据小数的位数乘以相应的倍数即可。</p>
+<h3 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h3><ul>
+<li>VARCHAR<br>VARCHAR类型用于存储可变长字符串，是最常见的字符串数据类型，它比定长类型更节省空间。有一种情况例外，如果MySQL表使用ROW_FORMAT=FIXED创建的话，么一行都会使用定长存储，这会很浪费空间。</li>
+<li><p>CHAR<br>CHAR类型是定长的：MySQL总是根据定义的字符串长度分配足够的空间。当存储CHAR值时，MySQL会删除所有的末尾空格。CHAR值会根据需要采用空格进行填充以方便比较。<br>CHAR适合存储很短的字符串，或者所有值都接近同一个长度。<br>数据如何存储取决于存储引擎，并非所有的存储引擎都会按照相同的方式处理，并非所有的存储引擎都会按照相同的方式处理定长和变长字符串。Memory引擎只支持定长的行，即使有变长字段也会根据最大长度分配最大空间。不过，填充和截取空格的行为在不同存储引擎都是一样的，因为这是在MySQL服务器层进行处理的。</p>
+<ul>
+<li>慷慨是不明智的<br>使用VARCHAR(5)和VARCHAR(200)存储‘hello’的空间开销是一样的。那么使用更短的列有什么优势吗？<br>事实证明有很大的优势。更长的列消耗更多的内存，因为MySQL通常会分配固定大小的内存块来保存内部值。尤其是使用内存临时表进行排序和操作时会特别糟糕。在利用磁盘临时表进行排序时也同样糟糕。</li>
+</ul>
+</li>
+<li><p>BLOB和TEXT类型<br>BLOB和TEXT都是为存储很大的数据而设计的字符串数据类型，分别采用二进制和字符串方式存储。<br>与其他类型不同，MySQL把每个BLOB和TEXT值当作一个独立的对象处理。存储引擎在存储时通常会做特殊处理。当BLOB和TEXT值太大时，InnoDB会使用专门的“外部”存储区域来进行存储，此时每个值在行内需要1~4个字节存储指针，然后在外部存储区域存储实际的值。<br>MySQL对BLOB和TEXT列进行排序和其他类型是不同的：它只对每个列的最前max_sort_length字节而不是整个字符串做排序。</p>
+<ul>
+<li>使用枚举(ENUM)代替字符串类型。</li>
+</ul>
+</li>
+</ul>
+<h3 id="日期和时间类型"><a href="#日期和时间类型" class="headerlink" title="日期和时间类型"></a>日期和时间类型</h3><p>TIMESTAMP列默认为NOT NULL，这也和其他的数据类型不一样。</p>
+<h3 id="位数据类型"><a href="#位数据类型" class="headerlink" title="位数据类型"></a>位数据类型</h3><p>MySQL有少数几种存储类型使用紧凑的位存储数据。所有这些位类型，不管底层存储格式和处理方式如何，从技术上来说都是字符串类型。</p>
+<h3 id="选择标识符"><a href="#选择标识符" class="headerlink" title="选择标识符"></a>选择标识符</h3><ul>
+<li>整数类型<br>整数通常是标识列最好的选择，因为它们很快并且可以使用AUTO_INCREMENT。</li>
+<li><p>ENUM和SET类型<br>对于标识列来说ENUM和SET类型通常是一个糟糕的选择。ENUM和SET列适合存储固定信息，例如有序的状态、产品类型、人的性别。</p>
+</li>
+<li><p>字符串类型<br>如果可能，应该尽量避免使用字符串作为标识列，因为它们很消耗空间，并且通常比数字类型慢。<br>对于完全“随机”的字符串也需要多加注意，例如MD5(),SHA1()或者UUID()产生的字符串。这些函数生成的新值会任意分布在很大的空间内，这会导致INSERT以及一些SELECT语句变得很慢：</p>
+<ul>
+<li>因为插入值会随机地写到索引的不同位置，所以使得INSERT语句更慢。这会导致页分裂、磁盘随机访问，以及对于聚簇存储引擎产生聚簇索引碎片。</li>
+<li>SELECT语句会变得更慢，因为逻辑上相邻的行会分布在磁盘和内存的不同地方</li>
+<li><p>随机值导致缓存对所有类型的查询语句效果都很差，因为会使得缓存赖以工作的访问局部习惯原理失效。如果整个数据集都一样的“热”，那么缓存任何一部分特定数据到内存都没有好处；如果工作集比内存大，缓存将会有很多刷新和不命中。</p>
+<p>如果存储UUID值，则应该移除“-”符号；更好的做法是，用UNHEX()函数转换UUID值为16字节的数字，并且存储在一个BINARY(16)列中。检索时可以通过HEX()函数来格式化为十六进制格式。</p>
+</li>
+<li><p>当心自动生成的schema<br>对象关系映射(ORM)系统(以及使用它们的“框架”)是另一种常见的性能噩梦。一些ORM系统会存储任意类型的数据到任意类型的后端数据存储中，这通常意味着其没有设计使用更优的数据类型来存储。有时会为每个对象的每个属性使用单独的行，甚至使用基于时间戳的版本控制，导致单个属性会有多个版本存在。</p>
+<p>这种设计对开发者很有吸引力，因为这使得他们可以用面向对象的方式工作，不需要考虑数据是怎么存储的。然而，“对开发者隐藏其复杂性”的应用通常不能很好地扩展。建议在用性能交换开发人员的效率之前仔细考虑，并且总是在真实大小的数据集上做测试，这样就不会太晚才发现性能问题。</p>
+<h2 id="MySQL-schema设计中的陷阱"><a href="#MySQL-schema设计中的陷阱" class="headerlink" title="MySQL schema设计中的陷阱"></a>MySQL schema设计中的陷阱</h2></li>
+</ul>
+<ul>
+<li><p>太多的列<br>当我们研究一个CPU占用非常高的案例时，发现客户使用了非常宽的表，然而只有一小部分列会实际用到，这时转换的代价就非常高。如果计划使用数千个字段，必须意识到服务器的性能运行特征会有一些不同。</p>
+</li>
+<li><p>太多的关联<br>一个初略的经验法则，如果希望查询执行得快速并且并发性好，单个查询最好在12个表以内做关联。</p>
+</li>
+<li><p>非此发明(Not Invent Here)的NULL<br>处理NULL确实不容易，但有时候会比它的替代方案更好。</p>
+<h2 id="范式和反范式"><a href="#范式和反范式" class="headerlink" title="范式和反范式"></a>范式和反范式</h2><p>对于任何给定的数据通常都有很多种表示方法，从完全的范式化到完全的反范式化，以及两者的折中。在范式化数据库中，每个事实数据会出现并且只出现一次。相反，在反范式化数据库中，信息是冗余的，可能存储在多个地方。</p>
+<h3 id="范式的优点和缺点"><a href="#范式的优点和缺点" class="headerlink" title="范式的优点和缺点"></a>范式的优点和缺点</h3><p>当为性能问题而寻求帮助时，经常会被建议对schema进行范式化设计，尤其是写密集的场景，这通常是个好建议。范式化通常能够带来好处：</p>
+</li>
+<li>范式化的更新操作通常比反范式化要快</li>
+<li>当数据较好地范式化时，就只有很少或者没有重复数据，所以只需要修改更少的数据。</li>
+<li><p>范式化的表通常更小，可以更好地放在内存里，所以执行操作会更快。</p>
+<p>范式化设计的schema的缺点是通常需要关联。稍微复杂一些的查询语句在符合范式的schema上都可能需要至少一次关联，也许更多。这不但代价昂贵，也可能使一些索引策略无效。例如，范式化可能将列存放在不同的表中，而这些列如果在一个表中本可以属于同一个索引。</p>
+<ul>
+<li>更快地读，更慢的写<br>为了提升读查询的速度，经常会需要建一些额外索引，增加冗余列，甚至创建缓存表和汇总表。这些方法会增加写查询的负担，也需要额外的维护任务，但在设计高性能数据库时，这些都是常见的技巧：虽然写操作变得更慢了，但更显著提高了读操作的性能。<br>然而，写操作变慢并不是读操作变得更快所付出的唯一代价，还可能同时增加了读操作和写操作的开发难度。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySql/">MySql</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/02/High-Performance-MYSQL-Chapter-Four/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-High-Performance-MYSQL-Chapter-Two" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/25/High-Performance-MYSQL-Chapter-Two/">High-Performance-MYSQL-Chapter-Two</a>
+    </h1>
+  
+
+        <a href="/2017/01/25/High-Performance-MYSQL-Chapter-Two/" class="archive-article-date">
+  	<time datetime="2017-01-25T08:30:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-25</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="性能优化简介"><a href="#性能优化简介" class="headerlink" title="性能优化简介"></a>性能优化简介</h2><p>很多人对此很迷茫。加入你认为性能优化是降低CPU利用率，那么可以减少对资源的使用。但是这是一个陷阱，资源是用力啊消耗并用来工作的，所以有时候消耗更多的资源能够加快查询速度。CPU利用率只是一种现象，而不是很好的可度量的目标。</p>
+<p>如果目标是降低响应时间，那么就需要理解为什么服务器执行查询需要这么多时间，然后减少或消除那些对获得查询结果来说不必要的工作。也就是说，要搞清楚时间花在哪里。这就引申出第二个原则：无法测量就无法有效优化。所以第一步应该测量时间花在什么地方。</p>
+<p>测量是一项很有挑战性的工作，并且分析结果也同样有挑战性，测出时间花在哪里，和知道为什么花在那里，是两码事。</p>
+<p>完成一项任务所需要的时间可以分为两部分：执行时间和等待时间。如果要优化任务的执行时间，最好的办法是通过测量定位不同的子任务花费的时间，然后优化去掉一些子任务、降低子任务的执行频率或者提升子任务的效率。而优化任务的等待时间则相对要复杂一些，因为等待有可能是其他系统间接影响导致。</p>
+<h3 id="通过性能剖析进行优化"><a href="#通过性能剖析进行优化" class="headerlink" title="通过性能剖析进行优化"></a>通过性能剖析进行优化</h3><p>性能剖析一般有两个步骤：测量任务所花费的时间，然后对结果进行统计和排序，将重要的任务排到前面。</p>
+<p>值得优化的查询<br>如果优化的成本大于收益，就应当停止优化。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MYSQL/">MYSQL</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/01/25/High-Performance-MYSQL-Chapter-Two/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
+    <article id="post-High-Performance-MYSQL-Chapter-One" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/01/08/High-Performance-MYSQL-Chapter-One/">High Performance MYSQL Chapter One</a>
+    </h1>
+  
+
+        <a href="/2017/01/08/High-Performance-MYSQL-Chapter-One/" class="archive-article-date">
   	<time datetime="2017-01-08T11:28:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-08</time>
 </a>
       </header>
@@ -187,7 +358,20 @@
 <h4 id="自动提交（AUTOCOMMIT）"><a href="#自动提交（AUTOCOMMIT）" class="headerlink" title="自动提交（AUTOCOMMIT）"></a>自动提交（AUTOCOMMIT）</h4><p>MySQL偶人采用自动提交模式。也就是说，如果不是显式地开始一个事务，则每个查询都会被当做一个事务执行提交操作。</p>
 <h4 id="在事务中混合使用存储引擎"><a href="#在事务中混合使用存储引擎" class="headerlink" title="在事务中混合使用存储引擎"></a>在事务中混合使用存储引擎</h4><p>MySQL服务器层不管理事务，事务是由下层的存储引擎实现的。所以在同一个事务中，使用多种存储引擎是不可靠的。如果正常提交，不会有什么问题；但是如果事务要回滚，非事务型表上的变更就无法撤销，这会导致数据库处于不一致的状态，这种情况很难修复，事务的最终结果将无法确定。所以，为每张表选择合适的存储引擎非常重要。</p>
 <h4 id="隐式和显式锁定"><a href="#隐式和显式锁定" class="headerlink" title="隐式和显式锁定"></a>隐式和显式锁定</h4><p>经常可以发现，应用已经将表从MyISAM换到InnoDB，但是还是使用LOCK TABLES语句。这没有必要而且影响性能，InnoDB的行级锁工作得更好</p>
-<h4 id="自动提交"><a href="#自动提交" class="headerlink" title="自动提交"></a>自动提交</h4>
+<h4 id="自动提交"><a href="#自动提交" class="headerlink" title="自动提交"></a>自动提交</h4><h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>在文件系统中，MySQL将每个数据库（也可以称之为schema）保存为数据目录下的一个子目录。创建表时，MySQL会在数据库子目录下创建一个和表同名的.frm文件中保存该表的定义。不同的存储引擎保存数据和索引的方式是不同的，但表的定义则是在MySQL服务层统一处理的。</p>
+<p>可以使用SHOW TABLE STATUS命令显示表的相关信息。例如：<br>SHOW TABLE STATUA LIKE ‘user’</p>
+<h3 id="InnoDB存储引擎"><a href="#InnoDB存储引擎" class="headerlink" title="InnoDB存储引擎"></a>InnoDB存储引擎</h3><p>InnoDB是MySQL的默认事务型引擎，也是最重要、使用最广泛的存储引擎。它被设计用来处理大量的短期事务，短期事务大部分情况是正常提交的，很少会被回滚。</p>
+<p>InnoDB采用MVCC来支持高并发，并且实现了四个标准的隔离级别。其默认级别是REPEATABLE READ（可重复读），并且通过间隙锁策略防止幻读的出现，间隙锁使得InnoDB不仅仅锁定查询涉及的行，还会对索引中的间隙进行锁定。</p>
+<p>InnoDB表是基于聚簇索引建立的，对主键查询有很高的性能。不过它的二级索引中必须包含主键列。InnoDB的存储格式是平台独立的，也就是说可以将数据和索引文件从Intel平台复制到PowerPC或者Sun SPARC平台。</p>
+<h2 id="基准测试的策略"><a href="#基准测试的策略" class="headerlink" title="基准测试的策略"></a>基准测试的策略</h2><h3 id="测试何种指标"><a href="#测试何种指标" class="headerlink" title="测试何种指标"></a>测试何种指标</h3><h4 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h4><p>吞吐量指的是单位时间内处的事务处理数。这类基准测试主要针对在线事务处理(OLTP)的吞吐量，非常适用于多用户的交互式应用。</p>
+<h4 id="响应时间或者延迟"><a href="#响应时间或者延迟" class="headerlink" title="响应时间或者延迟"></a>响应时间或者延迟</h4><p>这个指标用于测试任务所需的整体时间。包括平均响应时间、最小响应时间、最大响应时间和所占百分比，最大响应时间通常意义不大。通常可以使用百分比响应时间来代替最大响应时间。例如，如果95%的响应时间是5ms，则表示任务在95%的响应时间都是5ms。</p>
+<h4 id="并发性"><a href="#并发性" class="headerlink" title="并发性"></a>并发性</h4><p>一个设计良好的应用，同时可以打开成百上千个MySQL数据库服务器连接，但可能同时只有少数连接在执行查询。所以说，一个Web站点“同时有50000个用户”访问，却可能只有10-15个并发请求到MySQL数据库。<br>并发性的测量完全不同于响应时间和吞吐量。它不像是一个结果，而更像是设置基准测试的一种属性。并发性测试通常不是为了测试应用能达到的并发度，而是为了测试应用在不同并发下的性能。当然数据库的并发性还是需要测量的。可以通过sysbench指定32、64或128个线程的测试，然后在测试期间记录MySQL数据库的Treads_running状态值。</p>
+<p>归根结底，应该测试那些对用户来说最重要的指标。因此应该尽可能地去收集一些需求，比如，什么样的响应时间是可以接受的，期待多少的并发性，等等。然后基于这些需求来设计基准测试，避免目光短浅只关注部分指标，而忽略其他指标。</p>
+<h2 id="MySQL存储引擎"><a href="#MySQL存储引擎" class="headerlink" title="MySQL存储引擎"></a>MySQL存储引擎</h2><ul>
+<li>Memory引擎<br>Memory表支持Hash索引，因此查找操作非常快。虽然Memory表的速度非常快，但还是无法取代传统的基于磁盘的表。Memory表是表级锁，因此并发写入的性能较低。它不支持BLOB或TEXT类型的列，并且每行的长度是固定的，所以即使指定了VARCHAR列，实际存储时也会转换为CHAR。</li>
+</ul>
+<p>如果MySQL在执行查询的过程中需要使用临时表来保存中间结果，内部使用的临时表就是Memory表。如果中间结果太大超出了Memory表的限制，或者含有BLOB或TEXT字段，则临时表会转换成MyISAM表。</p>
+
       
 
       
@@ -204,7 +388,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2017/01/08/High-Performance-MYSQL/">展开全文 >></a>
+          <a class="article-more-a" href="/2017/01/08/High-Performance-MYSQL-Chapter-One/">展开全文 >></a>
         </p>
       
 
@@ -401,6 +585,14 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)">MySql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">MYSQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">Spring</a>
               </li>
              
@@ -410,10 +602,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">Best Practice</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">MYSQL</a>
               </li>
              
               <li class="article-tag-list-item">

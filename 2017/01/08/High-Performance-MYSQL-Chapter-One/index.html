@@ -13,12 +13,12 @@
 锁粒度一种提高共享资源并发性的方式就是让锁定对象更有选择性。尽量值">
 <meta property="og:type" content="article">
 <meta property="og:title" content="High Performance MYSQL Chapter One">
-<meta property="og:url" content="https://buptubuntu.github.io/2017/01/08/High-Performance-MYSQL/index.html">
+<meta property="og:url" content="https://buptubuntu.github.io/2017/01/08/High-Performance-MYSQL-Chapter-One/index.html">
 <meta property="og:site_name" content="buptubuntu的博客">
 <meta property="og:description" content="连接管理和安全性每个客户端连接都会在服务器进程中有一个对应的线程，这个连接的查询只会在这个单独的线程中执行。服务器会负责缓存线程，因此不需要为每个新建的连接创建或销毁线程。
 优化和执行优化器并不关心表使用的是什么存储引擎，但存储引擎对优化查询是有影响的。优化器会请求存储引擎提供容量或某个具体操作的开销信息，以及表数据的统计信息等。
 锁粒度一种提高共享资源并发性的方式就是让锁定对象更有选择性。尽量值">
-<meta property="og:updated_time" content="2017-01-08T12:50:37.000Z">
+<meta property="og:updated_time" content="2017-02-02T04:31:45.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="High Performance MYSQL Chapter One">
 <meta name="twitter:description" content="连接管理和安全性每个客户端连接都会在服务器进程中有一个对应的线程，这个连接的查询只会在这个单独的线程中执行。服务器会负责缓存线程，因此不需要为每个新建的连接创建或销毁线程。
@@ -157,7 +157,7 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-High-Performance-MYSQL" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-High-Performance-MYSQL-Chapter-One" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
@@ -168,7 +168,7 @@
     </h1>
   
 
-        <a href="/2017/01/08/High-Performance-MYSQL/" class="archive-article-date">
+        <a href="/2017/01/08/High-Performance-MYSQL-Chapter-One/" class="archive-article-date">
   	<time datetime="2017-01-08T11:28:06.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-08</time>
 </a>
       </header>
@@ -195,7 +195,20 @@
 <h4 id="自动提交（AUTOCOMMIT）"><a href="#自动提交（AUTOCOMMIT）" class="headerlink" title="自动提交（AUTOCOMMIT）"></a>自动提交（AUTOCOMMIT）</h4><p>MySQL偶人采用自动提交模式。也就是说，如果不是显式地开始一个事务，则每个查询都会被当做一个事务执行提交操作。</p>
 <h4 id="在事务中混合使用存储引擎"><a href="#在事务中混合使用存储引擎" class="headerlink" title="在事务中混合使用存储引擎"></a>在事务中混合使用存储引擎</h4><p>MySQL服务器层不管理事务，事务是由下层的存储引擎实现的。所以在同一个事务中，使用多种存储引擎是不可靠的。如果正常提交，不会有什么问题；但是如果事务要回滚，非事务型表上的变更就无法撤销，这会导致数据库处于不一致的状态，这种情况很难修复，事务的最终结果将无法确定。所以，为每张表选择合适的存储引擎非常重要。</p>
 <h4 id="隐式和显式锁定"><a href="#隐式和显式锁定" class="headerlink" title="隐式和显式锁定"></a>隐式和显式锁定</h4><p>经常可以发现，应用已经将表从MyISAM换到InnoDB，但是还是使用LOCK TABLES语句。这没有必要而且影响性能，InnoDB的行级锁工作得更好</p>
-<h4 id="自动提交"><a href="#自动提交" class="headerlink" title="自动提交"></a>自动提交</h4>
+<h4 id="自动提交"><a href="#自动提交" class="headerlink" title="自动提交"></a>自动提交</h4><h2 id="存储引擎"><a href="#存储引擎" class="headerlink" title="存储引擎"></a>存储引擎</h2><p>在文件系统中，MySQL将每个数据库（也可以称之为schema）保存为数据目录下的一个子目录。创建表时，MySQL会在数据库子目录下创建一个和表同名的.frm文件中保存该表的定义。不同的存储引擎保存数据和索引的方式是不同的，但表的定义则是在MySQL服务层统一处理的。</p>
+<p>可以使用SHOW TABLE STATUS命令显示表的相关信息。例如：<br>SHOW TABLE STATUA LIKE ‘user’</p>
+<h3 id="InnoDB存储引擎"><a href="#InnoDB存储引擎" class="headerlink" title="InnoDB存储引擎"></a>InnoDB存储引擎</h3><p>InnoDB是MySQL的默认事务型引擎，也是最重要、使用最广泛的存储引擎。它被设计用来处理大量的短期事务，短期事务大部分情况是正常提交的，很少会被回滚。</p>
+<p>InnoDB采用MVCC来支持高并发，并且实现了四个标准的隔离级别。其默认级别是REPEATABLE READ（可重复读），并且通过间隙锁策略防止幻读的出现，间隙锁使得InnoDB不仅仅锁定查询涉及的行，还会对索引中的间隙进行锁定。</p>
+<p>InnoDB表是基于聚簇索引建立的，对主键查询有很高的性能。不过它的二级索引中必须包含主键列。InnoDB的存储格式是平台独立的，也就是说可以将数据和索引文件从Intel平台复制到PowerPC或者Sun SPARC平台。</p>
+<h2 id="基准测试的策略"><a href="#基准测试的策略" class="headerlink" title="基准测试的策略"></a>基准测试的策略</h2><h3 id="测试何种指标"><a href="#测试何种指标" class="headerlink" title="测试何种指标"></a>测试何种指标</h3><h4 id="吞吐量"><a href="#吞吐量" class="headerlink" title="吞吐量"></a>吞吐量</h4><p>吞吐量指的是单位时间内处的事务处理数。这类基准测试主要针对在线事务处理(OLTP)的吞吐量，非常适用于多用户的交互式应用。</p>
+<h4 id="响应时间或者延迟"><a href="#响应时间或者延迟" class="headerlink" title="响应时间或者延迟"></a>响应时间或者延迟</h4><p>这个指标用于测试任务所需的整体时间。包括平均响应时间、最小响应时间、最大响应时间和所占百分比，最大响应时间通常意义不大。通常可以使用百分比响应时间来代替最大响应时间。例如，如果95%的响应时间是5ms，则表示任务在95%的响应时间都是5ms。</p>
+<h4 id="并发性"><a href="#并发性" class="headerlink" title="并发性"></a>并发性</h4><p>一个设计良好的应用，同时可以打开成百上千个MySQL数据库服务器连接，但可能同时只有少数连接在执行查询。所以说，一个Web站点“同时有50000个用户”访问，却可能只有10-15个并发请求到MySQL数据库。<br>并发性的测量完全不同于响应时间和吞吐量。它不像是一个结果，而更像是设置基准测试的一种属性。并发性测试通常不是为了测试应用能达到的并发度，而是为了测试应用在不同并发下的性能。当然数据库的并发性还是需要测量的。可以通过sysbench指定32、64或128个线程的测试，然后在测试期间记录MySQL数据库的Treads_running状态值。</p>
+<p>归根结底，应该测试那些对用户来说最重要的指标。因此应该尽可能地去收集一些需求，比如，什么样的响应时间是可以接受的，期待多少的并发性，等等。然后基于这些需求来设计基准测试，避免目光短浅只关注部分指标，而忽略其他指标。</p>
+<h2 id="MySQL存储引擎"><a href="#MySQL存储引擎" class="headerlink" title="MySQL存储引擎"></a>MySQL存储引擎</h2><ul>
+<li>Memory引擎<br>Memory表支持Hash索引，因此查找操作非常快。虽然Memory表的速度非常快，但还是无法取代传统的基于磁盘的表。Memory表是表级锁，因此并发写入的性能较低。它不支持BLOB或TEXT类型的列，并且每行的长度是固定的，所以即使指定了VARCHAR列，实际存储时也会转换为CHAR。</li>
+</ul>
+<p>如果MySQL在执行查询的过程中需要使用临时表来保存中间结果，内部使用的临时表就是Memory表。如果中间结果太大超出了Memory表的限制，或者含有BLOB或TEXT字段，则临时表会转换成MyISAM表。</p>
+
       
 
       
@@ -279,7 +292,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://buptubuntu.github.io/2017/01/08/High-Performance-MYSQL/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://buptubuntu.github.io/2017/01/08/High-Performance-MYSQL-Chapter-One/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -292,6 +305,15 @@
 
   
 <nav id="article-nav">
+  
+    <a href="/2017/01/25/High-Performance-MYSQL-Chapter-Two/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          High-Performance-MYSQL-Chapter-Two
+        
+      </div>
+    </a>
   
   
     <a href="/2017/01/02/Spring-Best-Practice/" id="article-nav-older" class="article-nav-link-wrap">
@@ -308,7 +330,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="High-Performance-MYSQL" data-title="High Performance MYSQL Chapter One" data-url="https://buptubuntu.github.io/2017/01/08/High-Performance-MYSQL/"></div>
+	<div class="ds-thread" data-thread-key="High-Performance-MYSQL-Chapter-One" data-title="High Performance MYSQL Chapter One" data-url="https://buptubuntu.github.io/2017/01/08/High-Performance-MYSQL-Chapter-One/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -380,6 +402,14 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)">MySql</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">MYSQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">Spring</a>
               </li>
              
@@ -389,10 +419,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">Best Practice</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">MYSQL</a>
               </li>
              
               <li class="article-tag-list-item">

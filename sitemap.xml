@@ -2,9 +2,23 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
-    <loc>https://buptubuntu.github.io/2017/01/08/High-Performance-MYSQL/</loc>
+    <loc>https://buptubuntu.github.io/2017/01/08/High-Performance-MYSQL-Chapter-One/</loc>
     
-    <lastmod>2017-01-08T12:50:37.000Z</lastmod>
+    <lastmod>2017-02-02T04:31:45.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://buptubuntu.github.io/2017/02/02/High-Performance-MYSQL-Chapter-Four/</loc>
+    
+    <lastmod>2017-02-02T04:30:19.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://buptubuntu.github.io/2017/01/25/High-Performance-MYSQL-Chapter-Two/</loc>
+    
+    <lastmod>2017-02-02T03:54:16.000Z</lastmod>
     
   </url>
   

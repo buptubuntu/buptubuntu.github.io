@@ -6,15 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://buptubuntu.github.io">
-  <title>categories | buptubuntu的博客</title>
+  <title>High-Performance-MYSQL-Chapter-Two | buptubuntu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="categories">
-<meta property="og:url" content="https://buptubuntu.github.io/categories/index.html">
+  <meta name="description" content="性能优化简介很多人对此很迷茫。加入你认为性能优化是降低CPU利用率，那么可以减少对资源的使用。但是这是一个陷阱，资源是用力啊消耗并用来工作的，所以有时候消耗更多的资源能够加快查询速度。CPU利用率只是一种现象，而不是很好的可度量的目标。
+如果目标是降低响应时间，那么就需要理解为什么服务器执行查询需要这么多时间，然后减少或消除那些对获得查询结果来说不必要的工作。也就是说，要搞清楚时间花在哪里。这就引">
+<meta property="og:type" content="article">
+<meta property="og:title" content="High-Performance-MYSQL-Chapter-Two">
+<meta property="og:url" content="https://buptubuntu.github.io/2017/01/25/High-Performance-MYSQL-Chapter-Two/index.html">
 <meta property="og:site_name" content="buptubuntu的博客">
-<meta property="og:updated_time" content="2016-12-27T15:23:24.000Z">
+<meta property="og:description" content="性能优化简介很多人对此很迷茫。加入你认为性能优化是降低CPU利用率，那么可以减少对资源的使用。但是这是一个陷阱，资源是用力啊消耗并用来工作的，所以有时候消耗更多的资源能够加快查询速度。CPU利用率只是一种现象，而不是很好的可度量的目标。
+如果目标是降低响应时间，那么就需要理解为什么服务器执行查询需要这么多时间，然后减少或消除那些对获得查询结果来说不必要的工作。也就是说，要搞清楚时间花在哪里。这就引">
+<meta property="og:updated_time" content="2017-02-02T03:54:16.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="categories">
+<meta name="twitter:title" content="High-Performance-MYSQL-Chapter-Two">
+<meta name="twitter:description" content="性能优化简介很多人对此很迷茫。加入你认为性能优化是降低CPU利用率，那么可以减少对资源的使用。但是这是一个陷阱，资源是用力啊消耗并用来工作的，所以有时候消耗更多的资源能够加快查询速度。CPU利用率只是一种现象，而不是很好的可度量的目标。
+如果目标是降低响应时间，那么就需要理解为什么服务器执行查询需要这么多时间，然后减少或消除那些对获得查询结果来说不必要的工作。也就是说，要搞清楚时间花在哪里。这就引">
   
     <link rel="alternative" href="/atom.xml" title="buptubuntu的博客" type="application/atom+xml">
   
@@ -148,25 +154,31 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="page-undefined" class="article article-type-page " itemscope itemprop="blogPost">
+            <article id="post-High-Performance-MYSQL-Chapter-Two" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      categories
+      High-Performance-MYSQL-Chapter-Two
     </h1>
   
 
-        <a href="/categories/index.html" class="archive-article-date">
-  	<time datetime="2016-12-27T15:22:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-12-27</time>
+        <a href="/2017/01/25/High-Performance-MYSQL-Chapter-Two/" class="archive-article-date">
+  	<time datetime="2017-01-25T08:30:29.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-01-25</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="性能优化简介"><a href="#性能优化简介" class="headerlink" title="性能优化简介"></a>性能优化简介</h2><p>很多人对此很迷茫。加入你认为性能优化是降低CPU利用率，那么可以减少对资源的使用。但是这是一个陷阱，资源是用力啊消耗并用来工作的，所以有时候消耗更多的资源能够加快查询速度。CPU利用率只是一种现象，而不是很好的可度量的目标。</p>
+<p>如果目标是降低响应时间，那么就需要理解为什么服务器执行查询需要这么多时间，然后减少或消除那些对获得查询结果来说不必要的工作。也就是说，要搞清楚时间花在哪里。这就引申出第二个原则：无法测量就无法有效优化。所以第一步应该测量时间花在什么地方。</p>
+<p>测量是一项很有挑战性的工作，并且分析结果也同样有挑战性，测出时间花在哪里，和知道为什么花在那里，是两码事。</p>
+<p>完成一项任务所需要的时间可以分为两部分：执行时间和等待时间。如果要优化任务的执行时间，最好的办法是通过测量定位不同的子任务花费的时间，然后优化去掉一些子任务、降低子任务的执行频率或者提升子任务的效率。而优化任务的等待时间则相对要复杂一些，因为等待有可能是其他系统间接影响导致。</p>
+<h3 id="通过性能剖析进行优化"><a href="#通过性能剖析进行优化" class="headerlink" title="通过性能剖析进行优化"></a>通过性能剖析进行优化</h3><p>性能剖析一般有两个步骤：测量任务所花费的时间，然后对结果进行统计和排序，将重要的任务排到前面。</p>
+<p>值得优化的查询<br>如果优化的成本大于收益，就应当停止优化。</p>
+
       
 
       
@@ -195,6 +207,11 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MYSQL/">MYSQL</a></li></ul>
+	</div>
+
       
 
       
@@ -245,7 +262,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://buptubuntu.github.io/categories/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://buptubuntu.github.io/2017/01/25/High-Performance-MYSQL-Chapter-Two/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -257,9 +274,48 @@
 </article>
 
   
+<nav id="article-nav">
+  
+    <a href="/2017/02/02/High-Performance-MYSQL-Chapter-Four/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          High-Performance-MYWQL-Chapter-Four
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/01/08/High-Performance-MYSQL-Chapter-One/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">High Performance MYSQL Chapter One</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
+
+
+
+<div class="duoshuo">
+	<!-- 多说评论框 start -->
+	<div class="ds-thread" data-thread-key="High-Performance-MYSQL-Chapter-Two" data-title="High-Performance-MYSQL-Chapter-Two" data-url="https://buptubuntu.github.io/2017/01/25/High-Performance-MYSQL-Chapter-Two/"></div>
+	<!-- 多说评论框 end -->
+	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+	<script type="text/javascript">
+	var duoshuoQuery = {short_name:"buptubuntugithub"};
+	(function() {
+		var ds = document.createElement('script');
+		ds.type = 'text/javascript';ds.async = true;
+		ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+		ds.charset = 'UTF-8';
+		(document.getElementsByTagName('head')[0] 
+		 || document.getElementsByTagName('body')[0]).appendChild(ds);
+	})();
+	</script>
+	<!-- 多说公共JS代码 end -->
+</div>
 
 
 
@@ -285,7 +341,7 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
