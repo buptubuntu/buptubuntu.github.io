@@ -6,24 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="https://buptubuntu.github.io">
-  <title>High-Performance-MYWQL-Chapter-Four | buptubuntu的博客</title>
+  <title>HTTP-METHOD | buptubuntu的博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="选择优化的数据类型
-更小的通常更好
-尽量避免NULL很多表都包含可为NULL（空值）的列，即使应用程序并不需要保存NULL也是如此。通常情况下最好指定列为NOT NULL，除非真的需要存储NULL值。如果查询中包含可为NULL的列，对于MySQL来说更难优化，因为可为NULL的列使得索引、索引统计和值比较都更加复杂。InnoDB使用单独的位（bit）存储NULL值，所以对于稀疏数据有很好的空间效率">
+  <meta name="description" content="HTTP请求方法介绍HTTP/1.1协议中定义了8中请求方法，不同的方法规定了不同的操作指定的资源方式。服务端也会根据不同的请求方法做不同的响应。
+GETGET请求会显示请求指定的资源。一般来说GET方法应该只用于数据的读取，而不应该用于会产生副作用的非幂等操作中。
+HEADHEAD方法与GET方法一样，都是向服务器发出指定资源的请求。但是，服务器在响应HEAD请求时不会回传资源的内容部分。使用H">
 <meta property="og:type" content="article">
-<meta property="og:title" content="High-Performance-MYWQL-Chapter-Four">
-<meta property="og:url" content="https://buptubuntu.github.io/2017/02/02/High-Performance-MYSQL-Chapter-Four/index.html">
+<meta property="og:title" content="HTTP-METHOD">
+<meta property="og:url" content="https://buptubuntu.github.io/2017/02/04/HTTP-METHOD/index.html">
 <meta property="og:site_name" content="buptubuntu的博客">
-<meta property="og:description" content="选择优化的数据类型
-更小的通常更好
-尽量避免NULL很多表都包含可为NULL（空值）的列，即使应用程序并不需要保存NULL也是如此。通常情况下最好指定列为NOT NULL，除非真的需要存储NULL值。如果查询中包含可为NULL的列，对于MySQL来说更难优化，因为可为NULL的列使得索引、索引统计和值比较都更加复杂。InnoDB使用单独的位（bit）存储NULL值，所以对于稀疏数据有很好的空间效率">
-<meta property="og:updated_time" content="2017-02-02T04:30:19.000Z">
+<meta property="og:description" content="HTTP请求方法介绍HTTP/1.1协议中定义了8中请求方法，不同的方法规定了不同的操作指定的资源方式。服务端也会根据不同的请求方法做不同的响应。
+GETGET请求会显示请求指定的资源。一般来说GET方法应该只用于数据的读取，而不应该用于会产生副作用的非幂等操作中。
+HEADHEAD方法与GET方法一样，都是向服务器发出指定资源的请求。但是，服务器在响应HEAD请求时不会回传资源的内容部分。使用H">
+<meta property="og:updated_time" content="2017-02-04T09:46:06.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="High-Performance-MYWQL-Chapter-Four">
-<meta name="twitter:description" content="选择优化的数据类型
-更小的通常更好
-尽量避免NULL很多表都包含可为NULL（空值）的列，即使应用程序并不需要保存NULL也是如此。通常情况下最好指定列为NOT NULL，除非真的需要存储NULL值。如果查询中包含可为NULL的列，对于MySQL来说更难优化，因为可为NULL的列使得索引、索引统计和值比较都更加复杂。InnoDB使用单独的位（bit）存储NULL值，所以对于稀疏数据有很好的空间效率">
+<meta name="twitter:title" content="HTTP-METHOD">
+<meta name="twitter:description" content="HTTP请求方法介绍HTTP/1.1协议中定义了8中请求方法，不同的方法规定了不同的操作指定的资源方式。服务端也会根据不同的请求方法做不同的响应。
+GETGET请求会显示请求指定的资源。一般来说GET方法应该只用于数据的读取，而不应该用于会产生副作用的非幂等操作中。
+HEADHEAD方法与GET方法一样，都是向服务器发出指定资源的请求。但是，服务器在响应HEAD请求时不会回传资源的内容部分。使用H">
   
     <link rel="alternative" href="/atom.xml" title="buptubuntu的博客" type="application/atom+xml">
   
@@ -157,83 +157,32 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-High-Performance-MYSQL-Chapter-Four" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-HTTP-METHOD" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      High-Performance-MYWQL-Chapter-Four
+      HTTP-METHOD
     </h1>
   
 
-        <a href="/2017/02/02/High-Performance-MYSQL-Chapter-Four/" class="archive-article-date">
-  	<time datetime="2017-02-02T01:18:25.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-02</time>
+        <a href="/2017/02/04/HTTP-METHOD/" class="archive-article-date">
+  	<time datetime="2017-02-04T09:26:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-04</time>
 </a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="选择优化的数据类型"><a href="#选择优化的数据类型" class="headerlink" title="选择优化的数据类型"></a>选择优化的数据类型</h2><ul>
-<li>更小的通常更好</li>
-<li>尽量避免NULL<br>很多表都包含可为NULL（空值）的列，即使应用程序并不需要保存NULL也是如此。通常情况下最好指定列为NOT NULL，除非真的需要存储NULL值。<br>如果查询中包含可为NULL的列，对于MySQL来说更难优化，因为可为NULL的列使得索引、索引统计和值比较都更加复杂。<br>InnoDB使用单独的位（bit）存储NULL值，所以对于稀疏数据有很好的空间效率。但这一点不适用于MyISAM。</li>
-</ul>
-<p>很多MySQL的数据类型可以存储相同类型的数据，只是存储的长度和范围不一样，允许的精度不同，或者需要的物理空间不同。相同大类型的不同子类型数据有时也有一些特殊的行为和属性。例如DATETIME和TIMESTAMP列都可以存储相同类型的数据：时间和日期，精确到秒。然而TIMESTAMP只使用DATETIME一半的存储空间，并且会根据时区变化，具有特殊的自动更新能力。另一方面，TIMESTAMP允许的时间范围要小得多，有时候它的特殊能力会成为障碍。</p>
-<p>MySQL为了兼容性支持很多别名，例如INTEGER、BOOL以及NUMERIC。它们都只是别名。</p>
-<h3 id="实数类型"><a href="#实数类型" class="headerlink" title="实数类型"></a>实数类型</h3><p>MySQL可以为整数类型指定宽度，例如INT(11)，对于大多数应用这是没有意义的：它不会限制值的合法范围，只是规定了MySQL的一些交互工具（例如MySQL命令行客户端）用来显示字符的个数。对于存储和计算来说，INT（1）和INT（20）是相同的。</p>
-<p>有多种方法可以指定浮点列所需要的精度，这回使得MySQL悄悄选择不同的数据类型，或者在存储时对值进行取舍。这些精度定义时非标准的，所以我们建议只指定数据类型，不指定精度。</p>
-<p>因为需要额外的空间和计算开销，所以应该尽量只在对小数进行精确计算时才使用DECIMAL——例如存储财务数据。但在数据量比较大的时候，可以考虑使用BIGINT代替DECIMAL，将需要存储的货币单位根据小数的位数乘以相应的倍数即可。</p>
-<h3 id="字符串类型"><a href="#字符串类型" class="headerlink" title="字符串类型"></a>字符串类型</h3><ul>
-<li>VARCHAR<br>VARCHAR类型用于存储可变长字符串，是最常见的字符串数据类型，它比定长类型更节省空间。有一种情况例外，如果MySQL表使用ROW_FORMAT=FIXED创建的话，么一行都会使用定长存储，这会很浪费空间。</li>
-<li><p>CHAR<br>CHAR类型是定长的：MySQL总是根据定义的字符串长度分配足够的空间。当存储CHAR值时，MySQL会删除所有的末尾空格。CHAR值会根据需要采用空格进行填充以方便比较。<br>CHAR适合存储很短的字符串，或者所有值都接近同一个长度。<br>数据如何存储取决于存储引擎，并非所有的存储引擎都会按照相同的方式处理，并非所有的存储引擎都会按照相同的方式处理定长和变长字符串。Memory引擎只支持定长的行，即使有变长字段也会根据最大长度分配最大空间。不过，填充和截取空格的行为在不同存储引擎都是一样的，因为这是在MySQL服务器层进行处理的。</p>
-<ul>
-<li>慷慨是不明智的<br>使用VARCHAR(5)和VARCHAR(200)存储‘hello’的空间开销是一样的。那么使用更短的列有什么优势吗？<br>事实证明有很大的优势。更长的列消耗更多的内存，因为MySQL通常会分配固定大小的内存块来保存内部值。尤其是使用内存临时表进行排序和操作时会特别糟糕。在利用磁盘临时表进行排序时也同样糟糕。</li>
-</ul>
-</li>
-<li><p>BLOB和TEXT类型<br>BLOB和TEXT都是为存储很大的数据而设计的字符串数据类型，分别采用二进制和字符串方式存储。<br>与其他类型不同，MySQL把每个BLOB和TEXT值当作一个独立的对象处理。存储引擎在存储时通常会做特殊处理。当BLOB和TEXT值太大时，InnoDB会使用专门的“外部”存储区域来进行存储，此时每个值在行内需要1~4个字节存储指针，然后在外部存储区域存储实际的值。<br>MySQL对BLOB和TEXT列进行排序和其他类型是不同的：它只对每个列的最前max_sort_length字节而不是整个字符串做排序。</p>
-<ul>
-<li>使用枚举(ENUM)代替字符串类型。</li>
-</ul>
-</li>
-</ul>
-<h3 id="日期和时间类型"><a href="#日期和时间类型" class="headerlink" title="日期和时间类型"></a>日期和时间类型</h3><p>TIMESTAMP列默认为NOT NULL，这也和其他的数据类型不一样。</p>
-<h3 id="位数据类型"><a href="#位数据类型" class="headerlink" title="位数据类型"></a>位数据类型</h3><p>MySQL有少数几种存储类型使用紧凑的位存储数据。所有这些位类型，不管底层存储格式和处理方式如何，从技术上来说都是字符串类型。</p>
-<h3 id="选择标识符"><a href="#选择标识符" class="headerlink" title="选择标识符"></a>选择标识符</h3><ul>
-<li>整数类型<br>整数通常是标识列最好的选择，因为它们很快并且可以使用AUTO_INCREMENT。</li>
-<li><p>ENUM和SET类型<br>对于标识列来说ENUM和SET类型通常是一个糟糕的选择。ENUM和SET列适合存储固定信息，例如有序的状态、产品类型、人的性别。</p>
-</li>
-<li><p>字符串类型<br>如果可能，应该尽量避免使用字符串作为标识列，因为它们很消耗空间，并且通常比数字类型慢。<br>对于完全“随机”的字符串也需要多加注意，例如MD5(),SHA1()或者UUID()产生的字符串。这些函数生成的新值会任意分布在很大的空间内，这会导致INSERT以及一些SELECT语句变得很慢：</p>
-<ul>
-<li>因为插入值会随机地写到索引的不同位置，所以使得INSERT语句更慢。这会导致页分裂、磁盘随机访问，以及对于聚簇存储引擎产生聚簇索引碎片。</li>
-<li>SELECT语句会变得更慢，因为逻辑上相邻的行会分布在磁盘和内存的不同地方</li>
-<li><p>随机值导致缓存对所有类型的查询语句效果都很差，因为会使得缓存赖以工作的访问局部习惯原理失效。如果整个数据集都一样的“热”，那么缓存任何一部分特定数据到内存都没有好处；如果工作集比内存大，缓存将会有很多刷新和不命中。</p>
-<p>如果存储UUID值，则应该移除“-”符号；更好的做法是，用UNHEX()函数转换UUID值为16字节的数字，并且存储在一个BINARY(16)列中。检索时可以通过HEX()函数来格式化为十六进制格式。</p>
-</li>
-<li><p>当心自动生成的schema<br>对象关系映射(ORM)系统(以及使用它们的“框架”)是另一种常见的性能噩梦。一些ORM系统会存储任意类型的数据到任意类型的后端数据存储中，这通常意味着其没有设计使用更优的数据类型来存储。有时会为每个对象的每个属性使用单独的行，甚至使用基于时间戳的版本控制，导致单个属性会有多个版本存在。</p>
-<p>这种设计对开发者很有吸引力，因为这使得他们可以用面向对象的方式工作，不需要考虑数据是怎么存储的。然而，“对开发者隐藏其复杂性”的应用通常不能很好地扩展。建议在用性能交换开发人员的效率之前仔细考虑，并且总是在真实大小的数据集上做测试，这样就不会太晚才发现性能问题。</p>
-<h2 id="MySQL-schema设计中的陷阱"><a href="#MySQL-schema设计中的陷阱" class="headerlink" title="MySQL schema设计中的陷阱"></a>MySQL schema设计中的陷阱</h2></li>
-</ul>
-<ul>
-<li><p>太多的列<br>当我们研究一个CPU占用非常高的案例时，发现客户使用了非常宽的表，然而只有一小部分列会实际用到，这时转换的代价就非常高。如果计划使用数千个字段，必须意识到服务器的性能运行特征会有一些不同。</p>
-</li>
-<li><p>太多的关联<br>一个初略的经验法则，如果希望查询执行得快速并且并发性好，单个查询最好在12个表以内做关联。</p>
-</li>
-<li><p>非此发明(Not Invent Here)的NULL<br>处理NULL确实不容易，但有时候会比它的替代方案更好。</p>
-<h2 id="范式和反范式"><a href="#范式和反范式" class="headerlink" title="范式和反范式"></a>范式和反范式</h2><p>对于任何给定的数据通常都有很多种表示方法，从完全的范式化到完全的反范式化，以及两者的折中。在范式化数据库中，每个事实数据会出现并且只出现一次。相反，在反范式化数据库中，信息是冗余的，可能存储在多个地方。</p>
-<h3 id="范式的优点和缺点"><a href="#范式的优点和缺点" class="headerlink" title="范式的优点和缺点"></a>范式的优点和缺点</h3><p>当为性能问题而寻求帮助时，经常会被建议对schema进行范式化设计，尤其是写密集的场景，这通常是个好建议。范式化通常能够带来好处：</p>
-</li>
-<li>范式化的更新操作通常比反范式化要快</li>
-<li>当数据较好地范式化时，就只有很少或者没有重复数据，所以只需要修改更少的数据。</li>
-<li><p>范式化的表通常更小，可以更好地放在内存里，所以执行操作会更快。</p>
-<p>范式化设计的schema的缺点是通常需要关联。稍微复杂一些的查询语句在符合范式的schema上都可能需要至少一次关联，也许更多。这不但代价昂贵，也可能使一些索引策略无效。例如，范式化可能将列存放在不同的表中，而这些列如果在一个表中本可以属于同一个索引。</p>
-<ul>
-<li>更快地读，更慢的写<br>为了提升读查询的速度，经常会需要建一些额外索引，增加冗余列，甚至创建缓存表和汇总表。这些方法会增加写查询的负担，也需要额外的维护任务，但在设计高性能数据库时，这些都是常见的技巧：虽然写操作变得更慢了，但更显著提高了读操作的性能。<br>然而，写操作变慢并不是读操作变得更快所付出的唯一代价，还可能同时增加了读操作和写操作的开发难度。</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
+        <h2 id="HTTP请求方法介绍"><a href="#HTTP请求方法介绍" class="headerlink" title="HTTP请求方法介绍"></a>HTTP请求方法介绍</h2><p>HTTP/1.1协议中定义了8中请求方法，不同的方法规定了不同的操作指定的资源方式。服务端也会根据不同的请求方法做不同的响应。</p>
+<h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h3><p>GET请求会显示请求指定的资源。一般来说GET方法应该只用于数据的读取，而不应该用于会产生副作用的非幂等操作中。</p>
+<h3 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h3><p>HEAD方法与GET方法一样，都是向服务器发出指定资源的请求。但是，服务器在响应HEAD请求时不会回传资源的内容部分。使用HEAD方法可以不传输全部内容，就能获取服务器响应头信息。HEAD方法常被用于客户端查看服务器性能。</p>
+<h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3><p>POST请求会向指定资源提交数据，请求服务器进行处理，如表单提交、文件上传等，请求数据会被包含在请求主体中。POST方法是非幂等的，因为这个请求会创建新的资源或者修改现有的资源。</p>
+<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><p>DELETE请求用于请求服务器删除请求URI标识的资源。DELETE请求后制定资源会被删除，DELETE方法也是幂等的。</p>
+<h3 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h3><p>CONNECT方法是HTTP/1.1协议预留的，能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接与非加密HTTP代理服务器的通信。</p>
+<h3 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h3><p>OPTIONS请求与HEAD类似，一般也是用于客户端查看服务器性能。这个方法会请求服务器返回该资源所支持的所有HTTP请求方法。JavaScript的XMLHttpRequest对象进行CORS跨域资源共享时，就是使用OPTIONS方法发送嗅探请求，以判断是否有指定资源的访问权限。</p>
+<h3 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h3><p>TRACE请求服务器回显其收到的请求信息，改方法主要用于HTTP请求的测试和诊断。</p>
 
       
 
@@ -265,7 +214,7 @@
       
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags"></i>
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySql/">MySql</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li></ul>
 	</div>
 
       
@@ -318,7 +267,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=https://buptubuntu.github.io/2017/02/02/High-Performance-MYSQL-Chapter-Four/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=https://buptubuntu.github.io/2017/02/04/HTTP-METHOD/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -332,18 +281,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/02/04/HTTP-METHOD/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          HTTP-METHOD
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/01/25/High-Performance-MYSQL-Chapter-Two/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">High-Performance-MYSQL-Chapter-Two</div>
+    <a href="/2017/02/02/High-Performance-MYSQL-Chapter-Four/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">High-Performance-MYWQL-Chapter-Four</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -356,7 +296,7 @@
 
 <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="High-Performance-MYSQL-Chapter-Four" data-title="High-Performance-MYWQL-Chapter-Four" data-url="https://buptubuntu.github.io/2017/02/02/High-Performance-MYSQL-Chapter-Four/"></div>
+	<div class="ds-thread" data-thread-key="HTTP-METHOD" data-title="HTTP-METHOD" data-url="https://buptubuntu.github.io/2017/02/04/HTTP-METHOD/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">

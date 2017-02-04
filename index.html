@@ -149,6 +149,67 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-HTTP-METHOD" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/04/HTTP-METHOD/">HTTP-METHOD</a>
+    </h1>
+  
+
+        <a href="/2017/02/04/HTTP-METHOD/" class="archive-article-date">
+  	<time datetime="2017-02-04T09:26:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-02-04</time>
+</a>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="HTTP请求方法介绍"><a href="#HTTP请求方法介绍" class="headerlink" title="HTTP请求方法介绍"></a>HTTP请求方法介绍</h2><p>HTTP/1.1协议中定义了8中请求方法，不同的方法规定了不同的操作指定的资源方式。服务端也会根据不同的请求方法做不同的响应。</p>
+<h3 id="GET"><a href="#GET" class="headerlink" title="GET"></a>GET</h3><p>GET请求会显示请求指定的资源。一般来说GET方法应该只用于数据的读取，而不应该用于会产生副作用的非幂等操作中。</p>
+<h3 id="HEAD"><a href="#HEAD" class="headerlink" title="HEAD"></a>HEAD</h3><p>HEAD方法与GET方法一样，都是向服务器发出指定资源的请求。但是，服务器在响应HEAD请求时不会回传资源的内容部分。使用HEAD方法可以不传输全部内容，就能获取服务器响应头信息。HEAD方法常被用于客户端查看服务器性能。</p>
+<h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3><p>POST请求会向指定资源提交数据，请求服务器进行处理，如表单提交、文件上传等，请求数据会被包含在请求主体中。POST方法是非幂等的，因为这个请求会创建新的资源或者修改现有的资源。</p>
+<h3 id="DELETE"><a href="#DELETE" class="headerlink" title="DELETE"></a>DELETE</h3><p>DELETE请求用于请求服务器删除请求URI标识的资源。DELETE请求后制定资源会被删除，DELETE方法也是幂等的。</p>
+<h3 id="CONNECT"><a href="#CONNECT" class="headerlink" title="CONNECT"></a>CONNECT</h3><p>CONNECT方法是HTTP/1.1协议预留的，能够将连接改为管道方式的代理服务器。通常用于SSL加密服务器的链接与非加密HTTP代理服务器的通信。</p>
+<h3 id="OPTIONS"><a href="#OPTIONS" class="headerlink" title="OPTIONS"></a>OPTIONS</h3><p>OPTIONS请求与HEAD类似，一般也是用于客户端查看服务器性能。这个方法会请求服务器返回该资源所支持的所有HTTP请求方法。JavaScript的XMLHttpRequest对象进行CORS跨域资源共享时，就是使用OPTIONS方法发送嗅探请求，以判断是否有指定资源的访问权限。</p>
+<h3 id="TRACE"><a href="#TRACE" class="headerlink" title="TRACE"></a>TRACE</h3><p>TRACE请求服务器回显其收到的请求信息，改方法主要用于HTTP请求的测试和诊断。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li></ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2017/02/04/HTTP-METHOD/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+
+
+
+  
     <article id="post-High-Performance-MYSQL-Chapter-Four" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -585,11 +646,23 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)">MYSQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)">MySql</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)">MYSQL</a>
+                <a href="javascript:void(0)">Spring MVC</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Exception Handling</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">HTTP</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -602,14 +675,6 @@
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)">Best Practice</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">Spring MVC</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)">Exception Handling</a>
               </li>
             
             <div class="clearfix"></div>
